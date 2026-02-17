@@ -10,4 +10,31 @@ class RestaurantRepository
     {
         return User::findOrFail($user_id);
     }
+
+    public function index(
+        
+    )
+    {
+
+    }
+
+    public function show()
+    {
+
+    }
+
+    public function store()
+    {
+
+    }
+
+    public function update()
+    {
+
+    }
+
+    public function delete()
+    {
+
+    }
 }
