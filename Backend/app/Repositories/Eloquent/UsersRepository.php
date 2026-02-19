@@ -6,7 +6,7 @@ use App\Models\User;
 
 class UsersRepository
 {
-    public function index(int $restaurant_id)
+    public function index()
     {
         return User::where('is_active', true)->get();
     }

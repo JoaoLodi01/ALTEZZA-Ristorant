@@ -2,8 +2,9 @@
 
 namespace App\Services;
 
+use App\Models\User;
 use App\Repositories\Eloquent\UsersRepository;
-use Illuminate\Support\Facades\Auth;
+
 
 class UsersService
 {
@@ -12,11 +13,9 @@ class UsersService
     )
     {}
 
-    public function index(int $restaurant_id)
+    public function index()
     {
-        $authUser = Auth::user();
-
-        $this->usersRepository->
+        $this->usersRepository->index();
     }
 
     public function show()
