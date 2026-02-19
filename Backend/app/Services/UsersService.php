@@ -13,9 +13,9 @@ class UsersService
     )
     {}
 
-    public function index(int $restaurant_id, User $user)
+    public function index()
     {
-        $this->usersRepository->index($restaurant_id, $user);
+        $this->usersRepository->index();
     }
 
     public function show()
