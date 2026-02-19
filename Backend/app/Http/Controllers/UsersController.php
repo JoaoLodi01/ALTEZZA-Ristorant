@@ -6,6 +6,7 @@ use App\Helpers\ApiResponse;
 use App\Http\Requests\UsersRequest;
 use App\Services\UsersService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class UsersController
 {
@@ -18,7 +19,7 @@ class UsersController
 
     public function index(int $restaurant_id)
     {
-        return $this->usersService->index($restaurant_id);
+        return $this->usersService->index($restaurant_id, Auth::user());
     }
 
     public function show(int $restaurant_id)
