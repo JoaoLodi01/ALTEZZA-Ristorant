@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Domain\Users\Controllers;
+namespace App\Domain\Auth\Controllers;
 
+use App\Domain\Auth\Requests\LoginRequest;
 use App\Helpers\ApiResponse;
-use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RegisterRequest;
 use App\Services\AuthService;
 use Illuminate\Http\Request;
