@@ -11,6 +11,8 @@ class CompanyUser extends Model
         'user_id',
         'company_id',
         'role',
+        'status',
+        'permission_id'
     ];
 
     protected $casts = [

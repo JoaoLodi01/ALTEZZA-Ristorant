@@ -17,6 +17,7 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->string('role'); 
             $table->enum('status', ['active', 'inactive', 'invited'])->default('active');
+            $table->foreignId('permission_id')->constrained()->cascadeOnDelete();
             $table->unique(['company_id', 'user_id']);
             $table->timestamps();
         });

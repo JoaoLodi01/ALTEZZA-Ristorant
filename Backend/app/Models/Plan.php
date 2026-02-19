@@ -24,9 +24,6 @@ class Plan extends Model
         'is_active' => 'boolean',
     ];
 
-    /**
-     * Empresas que utilizam esse plano
-     */
     public function companies(): HasMany
     {
         return $this->hasMany(Company::class);

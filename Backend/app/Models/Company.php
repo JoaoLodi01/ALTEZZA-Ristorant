@@ -24,9 +24,6 @@ class Company extends Model
         'trial_ends_at' => 'datetime',
     ];
 
-    /**
-     * Usuários vinculados à empresa
-     */
     public function users(): BelongsToMany
     {
         return $this->belongsToMany(User::class)
@@ -34,9 +31,6 @@ class Company extends Model
             ->withTimestamps();
     }
 
-    /**
-     * Plano vinculado
-     */
     public function plan(): BelongsTo
     {
         return $this->belongsTo(Plan::class);

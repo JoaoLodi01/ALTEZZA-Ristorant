@@ -11,15 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('plans', function (Blueprint $table) {
+        Schema::create('company_role_permissions', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->decimal('price');
-            $table->integer('max_users');
-            $table->integer('max_branches');
-            $table->string('features');
-            $table->boolean('is_active');
-            $table->softDeletes();
+            $table->foreignId('company_id')->constrained()->cascadeOnDelete();
+            $table->string('role');
+            $table->foreignId('permission_id')->constrained()->cascadeOnDelete();
             $table->timestamps();
         });
     }
@@ -29,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('plans');
+        Schema::dropIfExists('company_role_permissions');
     }
 };
