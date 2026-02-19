@@ -2,17 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Services\RestaurantService;
+use App\Services\CompanyService;
 use Illuminate\Http\Request;
 
-class RestaurantController extends Controller
+class CompanyController extends Controller
 {
     public function __construct(
-        private RestaurantService $restaurantService,
+        private CompanyService $companyService,
     )
     {}
 
-    public function index(int $restaurant_id)
+    public function index()
     {
 
     }

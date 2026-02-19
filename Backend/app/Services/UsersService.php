@@ -3,19 +3,20 @@
 namespace App\Services;
 
 use App\Models\User;
+use App\Repositories\Contracts\UsersRepositoryInterface;
 use App\Repositories\Eloquent\UsersRepository;
 
 
 class UsersService
 {
     public function __construct(
-        private UsersRepository $usersRepository,
+        private UsersRepositoryInterface $usersRepositoryInterface,
     )
     {}
 
     public function index()
     {
-        $this->usersRepository->index();
+        $this->usersRepositoryInterface->index();
     }
 
     public function show()

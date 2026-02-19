@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Helpers\ApiResponse;
+use App\Http\Requests\StoreUserRequest;
+use App\Http\Requests\UpdateUserRequest;
 use App\Http\Requests\UsersRequest;
 use App\Services\UsersService;
 use Illuminate\Http\Request;
@@ -29,14 +31,14 @@ class UsersController
         return $this->success($data);
     }
 
-    public function store(UsersRequest $request)
+    public function store(StoreUserRequest $request)
     {
         $data = $this->usersService->store($request->validated());
 
         return $this->success($data, 'Usuário cadastrado com sucesso.');
     }
 
-    public function update(Request $request, int $user_id)
+    public function update(UpdateUserRequest $request, int $user_id)
     {
         $data = $this->usersService->update($user_id, $request->validated());
 

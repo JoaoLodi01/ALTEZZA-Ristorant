@@ -3,8 +3,9 @@
 namespace App\Repositories\Eloquent;
 
 use App\Models\User;
+use App\Repositories\Contracts\UsersRepositoryInterface;
 
-class UsersRepository
+class UsersRepository implements UsersRepositoryInterface
 {
     public function index()
     {
@@ -23,12 +24,12 @@ class UsersRepository
         ]);
     }
 
-    public function update()
+    public function update(int $id, array $data)
     {
 
     }
 
-    public function delete()
+    public function delete(int $id)
     {
 
     }
