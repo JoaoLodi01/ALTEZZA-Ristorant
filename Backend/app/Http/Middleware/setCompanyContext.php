@@ -3,11 +3,12 @@
 namespace App\Http\Middleware;
 
 use App\Models\CompanyUser;
+use App\Support\CompanyContext;
 use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class setCompanyContext
+class SetCompanyContext
 {
     /**
      * Handle an incoming request.
@@ -26,7 +27,17 @@ class setCompanyContext
             ], 400);
         }
 
-        $belongs = CompanyUser::where('user_id', $user->id);
+        $belongs = CompanyUser::where('user_id', $user->id)->where('company_id', $companyId)->exists();
+
+        if (!$belongs) {
+            return response()->json([
+                'message' => 'Usuário não pertence à empresa',
+            ], 403);
+        }
+
+        CompanyContext::set($companyId);
+
+        $request->merge(['company_id' => $companyId]);
 
         return $next($request);
     }

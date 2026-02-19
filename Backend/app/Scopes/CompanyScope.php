@@ -2,6 +2,7 @@
 
 namespace App\Scopes;
 
+use App\Support\CompanyContext;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Scope;
@@ -16,17 +17,10 @@ class CompanyScope implements Scope
 
     public function apply(Builder $builder, Model $model): void
     {
-        if (!Auth::check()) {
-            return;
-        }
-
-        $companyId = Auth::user()->current_company_id;
+        $companyId = CompanyContext::get();
 
         if ($companyId) {
-            $builder->where(
-                $model->qualifyColumn('company_id'),
-                $companyId
-            );
+            $builder->where('company_id', $companyId);
         }
     }
 }
