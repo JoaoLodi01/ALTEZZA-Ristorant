@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Services;
+namespace App\Domain\Auth\Services;
 
-use App\Repositories\Eloquent\RestaurantRepository;
-use App\Repositories\Eloquent\UsersRepository;
+use App\Domain\Companies\Services\CompaniesService;
+use App\Domain\Users\Services\UsersService;
 use Exception;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
@@ -11,14 +11,14 @@ use Illuminate\Validation\ValidationException;
 class AuthService
 {
     public function __construct(
-        private UsersRepository $usersRepository,
-        private RestaurantRepository $restaurantRepository,
+        private UsersService $usersService,
+        private CompaniesService $companiesService,
     )
     {}
 
     public function register(array $data)
     {
-        if ($this->usersRepository->findByEmail($data['email'])) {
+        if ($this->usersService->findByEmail($data['email'])) {
             throw new Exception('Email já cadastrado.');
         }
 
@@ -26,7 +26,7 @@ class AuthService
         $data['password'] = Hash::make($data['password']);
         $data['confirm_password'] = Hash::make($data['confirm_password']);
 
-        return $this->usersRepository->store([
+        return $this->usersService->store([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => $data['password'],
@@ -37,7 +37,7 @@ class AuthService
 
     public function login(array $data): array
     {
-        $user = $this->usersRepository->findByEmail($data['email']);
+        $user = $this->usersService->findByEmail($data['email']);
         
         if (!$user || !Hash::check($data['password'], $user->password)) {
             throw ValidationException::withMessages([
@@ -52,13 +52,13 @@ class AuthService
             ]);
         }
                 
-        $restaurants = $this->restaurantRepository->findByUser($user->id);
+        $companies = $this->companiesService->findByUser($user->id);
         $token = $user->createToken('auth_token')->plainTextToken;
 
         return [
             'user' => $user,
             'token' => $token,
-            'restaurants' => $restaurants,
+            'restaurants' => $companies,
         ];
     }
 

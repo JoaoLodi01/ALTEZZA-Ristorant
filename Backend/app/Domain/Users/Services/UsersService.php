@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Services;
+namespace App\Domain\Users\Services;
 
-use App\Models\User;
+use App\Domain\Users\Models\User;
 
 class UsersService
 {
@@ -32,5 +32,10 @@ class UsersService
     public function delete(int $user_id)
     {
         User::findOrFail($user_id)->delete();
+    }
+
+    public function findByEmail(string $email)
+    {
+        return User::where('email', $email)->first();
     }
 }

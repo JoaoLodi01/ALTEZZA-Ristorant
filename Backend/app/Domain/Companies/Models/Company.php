@@ -1,7 +1,10 @@
 <?php
 
-namespace App\Models;
+namespace App\Domain\Companies\Models;
 
+use App\Domain\Users\Models\User;
+use App\Models\BaseModel;
+use App\Models\Plan;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 

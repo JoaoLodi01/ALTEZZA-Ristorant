@@ -3,9 +3,9 @@
 namespace App\Domain\Auth\Controllers;
 
 use App\Domain\Auth\Requests\LoginRequest;
+use App\Domain\Auth\Requests\RegisterRequest;
+use App\Domain\Auth\Services\AuthService;
 use App\Helpers\ApiResponse;
-use App\Http\Requests\RegisterRequest;
-use App\Services\AuthService;
 use Illuminate\Http\Request;
 
 class AuthController
