@@ -21,9 +21,8 @@ class UsersService
         return User::create($data);
     }
 
-    public function update(int $user_id, array $data)
+    public function update(User $user, array $data)
     {
-        $user = User::findOfFail($user_id);
         $user->update($data);
 
         return $user;
