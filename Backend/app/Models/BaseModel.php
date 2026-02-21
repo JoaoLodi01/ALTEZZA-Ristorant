@@ -10,16 +10,28 @@ abstract class BaseModel extends Model
 {
     protected static function booted()
     {
-        // 1. Aplica o filtro automático por empresa
-        static::addGlobalScope(new CompanyScope);
+       static::bootCompanyScope();
+       static::bootCompanyCreating();
+    }
 
-        // 2. Preenche company_id automaticamente ao criar
+    protected static function bootCompanyScope()
+    {
+        if (static::hasCompanyColumn()){
+            static::addGlobalScope(new CompanyScope);
+        }
+    }
+
+    protected static function bootCompanyCreating()
+    {
         static::creating(function ($model) {
-
-            // Só define se o campo existir na tabela
-            if (empty($model->company_id) && CompanyContext::get()) {
+            if (static::hasCompanyColumn() && CompanyContext::get()) {
                 $model->company_id = CompanyContext::get();
             }
         });
+    }
+
+    protected static function hasCompanyColumn(): bool
+    {
+        return in_array('company_id', (new static)->getFillable()) || (new static)->isFillable('company_id');
     }
 }

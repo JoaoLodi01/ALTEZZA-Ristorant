@@ -33,7 +33,7 @@ class AuthService
             'confirm_password' => $data['confirm_password']
         ]);
     }
-
+ 
 
     public function login(array $data): array
     {
