@@ -2,18 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Helpers\ApiResponse;
+use App\Domain\Users\Services\UsersService;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
-use App\Http\Requests\UsersRequest;
-use App\Services\UsersService;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
 class UsersController
 {
-    use ApiResponse;
-
     public function __construct(
         private UsersService $usersService,
     )
@@ -22,32 +16,31 @@ class UsersController
     public function index()
     {
         $data =  $this->usersService->index();
-        return $this->success($data);
+        return success($data);
     }
 
     public function show(int $user_id)
     {
         $data = $this->usersService->show($user_id);
-        return $this->success($data);
+        return success($data);
     }
 
     public function store(StoreUserRequest $request)
     {
         $data = $this->usersService->store($request->validated());
 
-        return $this->success($data, 'Usuário cadastrado com sucesso.');
+        return success($data, 'Usuário cadastrado com sucesso.');
     }
 
     public function update(UpdateUserRequest $request, int $user_id)
     {
-        $data = $this->usersService->update($user_id, $request->validated());
-
-        return $this->success($data, 'Usuário atualizado com sucesso.');
+        $this->usersService->update($this->usersService->show($user_id), $request->validated());
+        return success(null, 'Usuário atualizado com sucesso.');
     }
 
     public function delete(int $user_id)
     {
-        $this->usersService->delete($user_id);
-        return $this->success(null, 'Usuário removido.');
+        $this->usersService->delete($this->usersService->show($user_id));
+        return success(null, 'Usuário removido.');
     }
 }

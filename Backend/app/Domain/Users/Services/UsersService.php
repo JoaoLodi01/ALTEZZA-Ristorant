@@ -8,7 +8,7 @@ class UsersService
 {
     public function index()
     {
-        return User::latest()->paginate();
+        return User::paginate(10);
     }
 
     public function show(int $user_id)
@@ -23,14 +23,14 @@ class UsersService
 
     public function update(User $user, array $data)
     {
-        $user->update($data);
-
-        return $user;
+        return $user->update($data);
     }
 
-    public function delete(int $user_id)
+    public function delete(User $user)
     {
-        User::findOrFail($user_id)->delete();
+        return $user->update([
+            'is_active' => false,
+        ]);
     }
 
     public function findByEmail(string $email)

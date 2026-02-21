@@ -10,8 +10,6 @@ use Illuminate\Http\Request;
 
 class AuthController
 {    
-    use ApiResponse;
-
     public function __construct(
         private AuthService $authService
     )
@@ -21,20 +19,20 @@ class AuthController
     {
         $data = $this->authService->register($request->validated());
 
-        return $this->success($data, 'Usuário registrado com sucesso!');
+        return success($data, 'Usuário registrado com sucesso!');
     }
 
     public function login(LoginRequest $request)
     {
         $data = $this->authService->login($request->validated());
         
-        return $this->success($data, 'Login realizado com sucesso!');
+        return success($data, 'Login realizado com sucesso!');
     }
 
     public function logout(Request $request)
     {
         $data = $request->user()->tokens()->delete();
 
-        return $this->success($data, 'Logout realizado com sucesso!');
+        return success($data, 'Logout realizado com sucesso!');
     }
 }
