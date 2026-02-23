@@ -2,8 +2,9 @@
 
 namespace App\Providers;
 
-use App\Repositories\Contracts\UsersContracts;
-use App\Repositories\Eloquent\UsersRepository;
+use App\Events\CloseCommand;
+use App\Listeners\FinancialProcessCommands;
+use Illuminate\Support\Facades\Event;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -13,10 +14,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        $this->app->bind(
-        UsersContracts::class,
-        UsersRepository::class
-    );
+
     }
 
     /**
@@ -24,6 +22,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        Event::listen(
+            CloseCommand::class,
+            FinancialProcessCommands::class
+        );
     }
 }
