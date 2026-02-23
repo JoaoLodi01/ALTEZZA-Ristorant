@@ -2,8 +2,15 @@
 
 namespace App\Domain\Financial\Cash\Controllers;
 
+use App\Domain\Financial\Cash\Services\CashService;
+
 class CashController
 {
+    public function __construct(
+        private CashService $cashService
+    )
+    {}
+    
     public function index()
     {
 
@@ -26,6 +33,6 @@ class CashController
 
     public function delete()
     {
-
+        
     }
 }
