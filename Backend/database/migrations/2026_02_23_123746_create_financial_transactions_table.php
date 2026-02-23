@@ -37,6 +37,7 @@ return new class extends Migration
             $table->unsignedBigInteger('user_created')->nullable();
             $table->unsignedBigInteger('user_canceled')->nullable();
             $table->unsignedBigInteger('user_paid')->nullable();
+            $table->boolean('active')->default(1);
             $table->unsignedBigInteger('company_id');
             $table->timestamps();
             

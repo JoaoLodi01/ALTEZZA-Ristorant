@@ -13,7 +13,7 @@ class CashController
     
     public function index()
     {
-
+        
     }
 
     public function show()
